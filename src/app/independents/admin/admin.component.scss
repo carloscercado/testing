@@ -1,0 +1,92 @@
+body {
+  background: #eee !important;
+}
+
+.nav-link:hover {
+  cursor: pointer;
+}
+
+.sidenav-container {
+  width: 100%;
+  height: 91vh;
+}
+
+
+.action-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  font-size: 30px;
+}
+
+.mat-sidenav {
+  min-width: 20%;
+  max-width: 25%;
+  background: #3f51b5;
+  padding: 30px 10px;
+  color: #fafafa !important;
+  .mat-button {
+    width: 100%;
+    text-align: left;
+    margin: 0 !important;
+    padding: 0;
+  }
+
+  .mat-icon {
+    color: #fafafa !important;
+    display: inline-block !important;
+  }
+
+  .mat-subheader, .mat-line {
+    color: #fafafa !important;
+    display: inline-block !important;
+    padding-left: 10px;
+    padding-top: 10px;
+  }
+
+}
+
+.mat-sidenav-content {
+  padding: 30px 10px;
+}
+
+.user-profile {
+  width: 100%;
+  height: 250px;
+  background: #fff;
+  box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+  padding: 20px;
+}
+
+.user-profile-avatar {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: #fafafa;
+  box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+  position: relative;
+  top: -40px;
+  object-fit: cover;
+}
+
+.section {
+  padding-top: 15px;
+  background: #fff;
+  margin-top: 0;
+}
+
+.button-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.mat-input-container {
+  width: 100% !important;
+}
+
+// .toggle-button {
+//   position: absolute;
+//   top: -50px;
+//   left: 0;
+// }

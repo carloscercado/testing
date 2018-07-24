@@ -1,0 +1,41 @@
+<h2 mat-dialog-title>Iniciar Sesión</h2>
+<p *ngIf="data != undefined" class="message-login"><small>{{data.message}}<a *ngIf="data.link != undefined" [routerLink]="['/page', data.link.link]" (click)="dialogRef.close()" > {{data.link.name}} </a></small></p>
+<mat-dialog-content>
+  <mat-spinner *ngIf="loading" style="margin:0 auto;" mode="indeterminate"></mat-spinner>
+  <form *ngIf="!loading" class="form container-fluid">
+    <div class="form-container">
+      
+      <mat-form-field>
+        <input type="email" id="emailLogin" aria-describedby="emailHelp"
+          placeholder="Enter email" matInput
+          [(ngModel)]="user.email" [ngModelOptions]="{standalone: true}" />
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          id="passLogin"
+          placeholder="Password"
+          [type]="hide ? 'text' : 'password'"
+          [(ngModel)]="user.password"
+          [ngModelOptions]="{standalone: true}"
+          required>
+        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+      </mat-form-field>
+      
+      <a class="login-link-right" href="/forgot-password">Olvidé mi contraseña</a>
+      </div>
+      
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+  <button mat-raised-button mat-dialog-close [mat-dialog-close]="true" color="basic">Cerrar</button>
+  <button mat-raised-button (click)='loginUser()' color="primary">Loguear</button>
+ 
+ 
+</mat-dialog-actions>
+
+<div class="login-link-center">
+  ¿No tienes cuenta? <button mat-button mat-dialog-close [mat-dialog-close]="true" (click)="openRegisterDialog()">Regístrate</button>
+</div>

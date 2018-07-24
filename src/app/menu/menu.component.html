@@ -1,0 +1,107 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <a class="nav-link" [routerLink]="['/']" routerLinkActive="active">
+      <span class="icon">Bigwave</span>
+    </a>
+    <!-- Categorías -->
+    <button mat-icon-button [matMenuTriggerFor]="menu" class="hidden-xs minw120">
+      <mat-icon aria-label="">view_module</mat-icon>
+      <span class="categories-menu-title">CATEGORÍAS</span>
+    </button>
+
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        <mat-icon>code</mat-icon>
+        <span>Desarrollo</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>code</mat-icon>
+        <span>Desarrollo</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>code</mat-icon>
+        <span>Desarrollo</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>code</mat-icon>
+        <span>Desarrollo</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>code</mat-icon>
+        <span>Desarrollo</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>code</mat-icon>
+        <span>Desarrollo</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>code</mat-icon>
+        <span>Desarrollo</span>
+      </button>
+    </mat-menu>
+    <!-- Categorías -->
+
+    <span class="spacer"></span>
+
+    <!-- Barra de búsqueda -->
+    <navbar-search style="width: 100%; max-width: 265px;"></navbar-search>
+    <!-- Barra de búsqueda -->
+
+    <button mat-button [routerLink]="['/profile']" [queryParams]="{tab:'pymes'}" *ngIf="_tokenService.userSignedIn()" class="hidden-xs">CREA TU NEGOCIO ONLINE</button>
+    <button mat-button *ngIf="!_tokenService.userSignedIn()" (click)="openLoginDialog()" class="hidden-xs">CREA TU NEGOCIO ONLINE</button>
+
+    <button mat-icon-button *ngIf="_tokenService.userSignedIn()" class="hidden-xs" [routerLink]="['/profile']" [queryParams]="{tab:'favorites'}">
+      <mat-icon aria-label="">favorite</mat-icon>
+    </button>
+
+    <button mat-icon-button class="hidden-xs" *ngIf="!_tokenService.userSignedIn()" (click)="openLoginDialog()">
+      <mat-icon aria-label="">shopping_cart</mat-icon>
+    </button>
+    <button mat-icon-button class="hidden-xs" *ngIf="_tokenService.userSignedIn()" (click)="openLoginDialog()">
+      <mat-icon aria-label="">shopping_cart</mat-icon>
+    </button>
+
+    <div *ngIf="!_tokenService.userSignedIn()" class="hidden-xs">
+      <div class="button-row">
+        <button mat-raised-button color="accent" (click)="openLoginDialog()" style="margin: 0 5px">INICIA SESIÓN</button>
+        <button mat-raised-button color="primary" (click)="openRegisterDialog()">REGISTRATE</button>
+      </div>
+    </div>
+
+    <div *ngIf="_tokenService.userSignedIn()">
+      <button mat-icon-button [matMenuTriggerFor]="notifications">
+        <mat-icon>notifications</mat-icon>
+      </button>
+
+      <!-- Lista de notificaciones-->
+      <mat-menu #notifications="matMenu">
+        <button mat-menu-item>
+          <mat-icon>account_circle</mat-icon>
+          <span>notifications</span>
+        </button>
+      </mat-menu>
+      <!-- Lista de notificaciones-->
+
+      <button mat-icon-button [matMenuTriggerFor]="menu" class="hidden-xs">
+        <img class="user-avatar" src="assets/imgs/profile.jpg" alt="..." *ngIf="!user.avatar.url">
+        <img class="user-avatar" src="https://bigwave-api.herokuapp.com{{user.avatar.url}}" alt="..." *ngIf="user.avatar.url">
+        <!-- <mat-icon>more_vert</mat-icon> -->
+      </button>
+<!-- class="only-xs" -->
+      <!-- <button mat-icon-button>
+        <mat-icon>menu</mat-icon>
+      </button> -->
+
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item *ngIf="_tokenService.userSignedIn()" [routerLink]="['/profile']">
+          <mat-icon>account_circle</mat-icon>
+          <span>Perfil</span>
+        </button>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>voicemail</mat-icon>
+          <span>Salir</span>
+        </button>
+      </mat-menu>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>

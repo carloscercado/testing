@@ -1,0 +1,143 @@
+<mat-sidenav-container class="sidenav-container mat-drawer-container mat-sidenav-container">
+  <!-- Sidebar options -->
+  <mat-sidenav #sidenav mode="side" [opened]="true" class="mat-sidenav hidden-xs">
+    <mat-list>
+      <mat-list-item>
+        <!-- Categorías -->
+        <!-- <mat-select placeholder='Categorías'>
+          <mat-option value='tecnologia' mat-icon-button [matMenuTriggerFor]="menu">
+            Tecnología
+          </mat-option>
+          <mat-option value='deporte'>
+            Deporte
+          </mat-option>
+          <mat-option value='accesorios'>
+            Accesorios
+          </mat-option>
+        </mat-select> -->
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <span class="categories-menu-title">Categorías</span>
+        </button>
+
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>
+            <span class="categories-menu-title">Todas las categorías</span>
+          </button>
+          <button mat-menu-item [matMenuTriggerFor]="dev" *ngFor="let category of categories;let last = last;">
+            <span class="categories-menu-title">{{category.attributes.name}}</span>
+          </button>
+          <!-- <button mat-menu-item [matMenuTriggerFor]="design">
+            <span class="categories-menu-title">Diseño</span>
+          </button> -->
+          <!-- <mat-menu #dev="matMenu">
+            <button mat-menu-item>
+              <span class="categories-menu-title">Frontend</span>
+            </button>
+            <button mat-menu-item>
+              <span class="categories-menu-title">Backend</span>
+            </button>
+            <button mat-menu-item>
+              <span class="categories-menu-title">Servidor</span>
+            </button>
+          </mat-menu>
+          <mat-menu #design="matMenu">
+            <button mat-menu-item>
+              <span class="categories-menu-title">Gráfico</span>
+            </button>
+            <button mat-menu-item>
+              <span class="categories-menu-title">Web</span>
+            </button>
+            <button mat-menu-item>
+              <span class="categories-menu-title">Publicidad</span>
+            </button>
+          </mat-menu> -->
+        </mat-menu>
+        <!-- Categorías -->
+      </mat-list-item>
+      <mat-list-item>
+        <mat-checkbox [(checked)]="sellers">Tiendas</mat-checkbox>
+      </mat-list-item>
+      <mat-list-item>
+        <mat-checkbox [(checked)]="independents">Independientes</mat-checkbox>
+      </mat-list-item>
+      <mat-list-item>
+        <mat-checkbox [(checked)]="sellers">Vendedores</mat-checkbox>
+      </mat-list-item>
+      <mat-list-item>
+        <small>Ordenar</small>
+      </mat-list-item>
+      <mat-list-item>
+        <mat-radio-group>
+          <small>
+            <mat-radio-button value="to_high" [(checked)]="low_to_high_price"> < De menor a mayor</mat-radio-button>
+            <mat-radio-button value="to_low" [(checked)]="!low_to_high_price"> > De mayor a menor</mat-radio-button>
+          </small>
+        </mat-radio-group>
+      </mat-list-item>
+      <!-- <mat-list-item>
+        <mat-tree>
+          <mat-tree-node> parent node </mat-tree-node>
+          <mat-tree-node> -- child node 1 </mat-tree-node>
+          <mat-tree-node> -- child node 2 </mat-tree-node>
+        </mat-tree>
+      </mat-list-item> -->
+      <!-- <mat-list-item>
+        <small>Ordenar por ciudad</small>
+      </mat-list-item> -->
+      <mat-list-item>
+        <mat-select placeholder='Ciudad'>
+          <mat-option value='{{city}}' *ngFor="let city of cities;let last = last;">
+            {{city}}
+          </mat-option>
+        </mat-select>
+      </mat-list-item>
+    </mat-list>
+  </mat-sidenav>
+  <!-- Sidebar options -->
+
+  <mat-sidenav-content>
+    <div class="container-fluid" style="margin-bottom: 20px; padding-top: 15px">
+      <!-- <div class="section-title">
+        Resultados
+      </div> -->
+      <!-- <mat-divider style="margin-top: 10px"></mat-divider> -->
+      <mat-spinner *ngIf="loadingResults" style="margin:50px auto;" mode="indeterminate"></mat-spinner>
+      <div *ngIf="!loadingResults">
+        <div class="col-sm-12" >
+          <div *ngIf="!results.length">
+            <h3>No se encontraron resultados :(</h3>
+          </div>
+          <div class="section" *ngFor="let result of results;let last = last;">
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="card">
+                  <span class="flag-icon flag-icon-ve"></span>
+                  <img src="{{result.attributes.photo}}" style="width: 100%;"/>
+                </div>
+              </div>
+              <div class="col-sm-8">
+                <div class="card-name">
+                  <span>{{result.attributes.name}}</span>
+                </div>
+                <div class="card-type">
+                  <span>{{result.attributes.type_profile}}</span>
+                </div>
+                <div class="card-email">
+                  <span>{{result.attributes.email}}</span>
+                </div>
+                <div class="card-address">
+                  <span>{{result.attributes.address}}</span>
+                </div>
+                <div class="icon-like-content text-right">
+                  <button mat-mini-fab class="toolbar-icon" >
+                    <mat-icon aria-label="">thumb_up</mat-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

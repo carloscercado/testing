@@ -1,0 +1,51 @@
+.categories-menu-title {
+  min-width: 130px;
+}
+
+a {
+  color: #fff;
+}
+
+.mat-toolbar {
+  box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
+}
+
+.icon {
+  padding: 0 14px;
+}
+
+.mat-icon-button {
+  outline: none;
+}
+
+.app-tooltip {
+  display: inline-flex;
+  align-items: center;
+  margin: 50px;
+}
+
+.toolbar-icon {
+  margin-right: 15px;
+}
+
+.button-transparent {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+@media (min-width: 0px) and (max-width: 767px) {
+  .mat-toolbar-row {
+    padding: 0 10px;
+  }
+
+  .toolbar-icon {
+    margin-right: 0;
+  }
+}
+
+.user-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+}

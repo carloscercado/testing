@@ -1,0 +1,131 @@
+body {
+  background: #eee !important;
+}
+
+.mat-sidenav[_ngcontent-c8] {
+  background: #f0f1f5;
+}
+
+.nav-link:hover {
+  cursor: pointer;
+}
+
+.sidenav-container {
+  width: 100%;
+  height: 91vh;
+}
+
+.action-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  font-size: 30px;
+}
+
+.mat-sidenav {
+  min-width: 20%;
+  max-width: 20%;
+  background: #3f51b5;
+  // padding: 30px 10px;
+  color: #fafafa !important;
+  min-height: 50vh;
+
+  .mat-button {
+    width: 100%;
+    text-align: left;
+    margin: 0 !important;
+    padding: 0;
+  }
+
+  .mat-icon {
+    color: #fafafa !important;
+    display: inline-block !important;
+  }
+
+  .mat-subheader, .mat-line {
+    color: #fafafa !important;
+    display: inline-block !important;
+    padding-left: 10px;
+    padding-top: 10px;
+  }
+}
+
+.mat-sidenav-content {
+  padding: 30px 10px;
+  background: #f7f7f7;
+}
+
+.user-profile {
+  width: 100%;
+  height: 250px;
+  background: #fff;
+  box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+  padding: 20px;
+}
+
+.user-profile-avatar {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: #fafafa;
+  box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+  position: relative;
+  top: -40px;
+  object-fit: cover;
+}
+
+.section {
+  background: #fff;
+  margin-bottom: 10px;
+  margin-top: 0;
+  min-height: 100px;
+  padding: 15px;
+}
+
+.card {
+  min-height: 100px;
+  img {
+    height: 100px;
+    object-fit: cover;
+  }
+}
+
+.button-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.mat-input-container {
+  width: 100% !important;
+}
+
+mat-accordion {
+  padding: 0 !important;
+  // background: red;
+}
+
+mat-expansion-panel-header {
+  // padding: 0;
+  // margin: -15px;
+}
+
+mat-expansion-panel {
+  padding: 0;
+}
+
+.mat-expansion-panel-body {
+  padding: 0;
+}
+
+mat-checkbox {
+  display: block;
+}
+
+@media (min-width: 767px) {
+  mat-sidenav-content {
+    position: absolute;
+    right: 0;
+    width: 80%;
+  }
+}

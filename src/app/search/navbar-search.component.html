@@ -1,0 +1,23 @@
+<div class='navbar-search'>
+  <mat-form-field appearance='outline' class='example-full-width'>
+    <!-- <mat-label>Buscar...</mat-label> -->
+    <input #search mdInput matInput
+          id='search-input'
+          type='search'
+          name='search'
+          [(ngModel)]='q'
+          [formControl]='searchControl'
+          (keyup)='goToSearch(search.value)'
+          placeholder='Buscar productos, tiendas o perfiles'/>
+          <!-- [matAutocomplete]='autoGroup'
+          formControlName='stateGroup' -->
+    <!-- <mat-autocomplete #autoGroup='matAutocomplete'>
+      <mat-optgroup *ngFor='let group of stateGroupOptions | async' [label]='group.letter'>
+        <mat-option *ngFor='let name of group.names' [value]='name'>
+          {{ name }}
+        </mat-option>
+      </mat-optgroup>
+    </mat-autocomplete>
+    <mat-icon matSuffix>search</mat-icon> -->
+  </mat-form-field>
+</div>

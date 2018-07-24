@@ -1,0 +1,50 @@
+<h2 mat-dialog-title>Registro</h2>
+<mat-dialog-content>
+  <mat-spinner *ngIf="loading" style="margin:0 auto;" mode="indeterminate"></mat-spinner>
+  <form *ngIf="!loading" class="form container-fluid">
+    <div class="example-container">
+      <!-- <div *ngFor="let error of errorsRegister" class="alert alert-danger" role="alert">
+        - {{error}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div> -->
+      <mat-form-field>
+        <input type="text" matInput id="fullname"
+          placeholder="Ingrese el nombre" [ngModelOptions]="{standalone: true}"
+          required [(ngModel)]="user.name" >
+      </mat-form-field>
+      <mat-form-field>
+        <input type="text" matInput id="nickname"
+        placeholder="Ingrese nombre de usuario" [ngModelOptions]="{standalone: true}"
+        required [(ngModel)]="user.nickname">
+      </mat-form-field>
+      <mat-form-field>
+        <input type="email" id="email" matInput
+            placeholder="Enter email" [ngModelOptions]="{standalone: true}"
+            required [(ngModel)]="user.email">
+      </mat-form-field>
+      <mat-form-field>
+        <input type="password" id="password" matInput
+          placeholder="Password" required [ngModelOptions]="{standalone: true}"
+          [(ngModel)]="user.password">
+      </mat-form-field>
+      <mat-form-field>
+        <input type="password" id="password2" matInput
+          placeholder="Password" required [ngModelOptions]="{standalone: true}"
+          [(ngModel)]="user.password_confirmation">
+      </mat-form-field>
+      <!-- <mat-form-field>
+        <input type="checkbox" class="form-check-input" id="loggedin" matInput >
+      </mat-form-field> -->
+      <!-- <button (click)="registerUser()" type="submit" class="btn btn-primary">Registrar</button> -->
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-raised-button mat-dialog-close [mat-dialog-close]="true" color="basic">Cerrar</button>
+  <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+  <button mat-raised-button (click)='registerUser()' color="primary">Registrar</button>
+</mat-dialog-actions>
+

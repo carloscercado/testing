@@ -1,0 +1,77 @@
+<div class="card" style="padding: 20px">
+  <form class="form container-fluid form-container" *ngIf="!loading" >
+    <mat-form-field>
+      <input matInput type="text"  id="pyme_title"
+        placeholder="Nombre de la tienda"
+        [ngModelOptions]="{standalone: true}"
+        required [(ngModel)]="profile.title"  />
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="text" id="pyme_description"
+        placeholder="Descripción"
+        [ngModelOptions]="{standalone: true}"
+        [(ngModel)]="profile.description"  />
+    </mat-form-field>
+
+
+    <mat-form-field>
+      <input matInput placeholder="Correo" [formControl]="email" [(ngModel)]="profile.email" required>
+      <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+        <!-- <input matInput type="email"  id="pyme_email"
+          placeholder="Correo"
+          [ngModelOptions]="{standalone: true}"
+          [(ngModel)]="profile.email"  />
+    </mat-form-field> -->
+
+     <div class="row">
+      <div class="col-lg-12">
+        <!-- <form [formGroup]="stateForm">
+          <mat-form-field>
+            <input type="text" matInput placeholder="States Group" formControlName="stateGroup" required [matAutocomplete]="autoGroup"/>
+              <mat-autocomplete #autoGroup="matAutocomplete">
+                <mat-optgroup *ngFor="let group of stateGroupOptions | async" [label]="group.letter">
+                  <mat-option *ngFor="let name of group.names" [value]="name">
+                    {{ name }}
+                  </mat-option>
+              </mat-optgroup>
+            </mat-autocomplete>
+          </mat-form-field>
+        </form> -->
+        <!-- <mat-form-field class="example-full-width" style="width: 100%">
+         <input type="text" placeholder="Categoría" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto" [(ngModel)]="profile.category_ids">
+         <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+           <mat-option *ngFor="let option of filteredOptions | async" [value]="option.id">
+             {{ option.name }}
+           </mat-option>
+           <mat-optgroup *ngFor="let option of filteredOptions | async" [label]="option.name">
+             <mat-option [value]="option.id">
+               {{ option.name }}
+             </mat-option>
+              <mat-option *ngFor="let sub of option.subcategories" [value]="sub.category_id">
+                {{ sub.name }}
+              </mat-option>
+            </mat-optgroup>
+         </mat-autocomplete>
+       </mat-form-field> -->
+
+       <!-- <mat-option *ngFor="let option of filteredOptions | async" [value]="option.id">
+         {{ option.name }}
+       </mat-option> -->
+
+        <mat-form-field class="example-full-width" style="width: 100%">
+          <mat-select placeholder="Categorías" [formControl]="myControl" [(ngModel)]="profile.category_ids" multiple required>
+            <!-- <input type="text" placeholder="Categoría" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto" [(ngModel)]="profile.category_ids"> -->
+            <mat-option *ngFor="let option of options" [value]="option.id">{{ option.name }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+
+  <button mat-raised-button (click)="createPyme()" color="primary" [(disabled)]="email.invalid || !profile.title">
+      Crear Tienda
+  </button>
+</div>

@@ -1,0 +1,259 @@
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+  </ol>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <div class="mask"></div>
+      <img class="d-block w-100 carousel-img-home" src="assets/imgs/03.jpg" alt="First slide">
+      <div class="carousel-caption d-none d-md-block carousel-description">
+        <h2>First slide label</h2>
+        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+        <button *ngIf="_tokenService.userSignedIn()" mat-raised-button color="accent" [routerLink]="['/profile']" [queryParams]="{tab:'pymes'}">CREAR TIENDA</button>
+        <button *ngIf="!_tokenService.userSignedIn()" mat-raised-button color="accent" (click)="openLoginDialog('crear tu tienda', 'crear', null, null, { name: 'saber más' , link:'store'})">CREAR TIENDA</button>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="mask"></div>
+      <img class="d-block w-100 carousel-img-home" src="assets/imgs/02.jpg" alt="Second slide">
+      <div class="carousel-caption w-100 d-none d-md-block carousel-description">
+        <h2>Second slide label</h2>
+        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+        <button *ngIf="_tokenService.userSignedIn()" mat-raised-button color="accent" [routerLink]="['/profile']" [queryParams]="{tab:'sellers'}">DESEO VENDER</button>
+        <button *ngIf="!_tokenService.userSignedIn()" mat-raised-button color="accent" (click)="openLoginDialog('publicar un producto', 'crear', null, null, { name: 'saber más' , link:'seller'})">DESEO VENDER</button>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="mask"></div>
+      <img class="d-block w-100 carousel-img-home" src="assets/imgs/04.jpg" alt="Third slide">
+      <div class="carousel-caption d-none d-md-block carousel-description">
+        <h2>Third slide label</h2>
+        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+        <button *ngIf="_tokenService.userSignedIn()" mat-raised-button color="accent" [routerLink]="['/profile']" [queryParams]="{tab:'independents'}">CREAR PROFESIONAL</button>
+        <button *ngIf="!_tokenService.userSignedIn()" mat-raised-button color="accent" (click)="openLoginDialog('crear tu perfil profesional', 'crear', null, null, { name: 'saber más' , link:'independent'})">CREAR PROFESIONAL</button>
+      </div>
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+
+<div class="container" style="margin-top: 50px">
+  <mat-grid-list cols="3" rowHeight="100px" class="hidden-xs">
+    <mat-grid-tile>
+      <div class="info-card">
+        <div class="info-card-title text-left">
+          Múltiples Funcionalidades
+        </div>
+        <div class="info-card-content">
+          Explore una amplia variedad de herramientas para hacer crecer su negocio
+        </div>
+      </div>
+    </mat-grid-tile>
+
+    <mat-grid-tile>
+      <div class="info-card">
+        <div class="info-card-title text-left">
+          Autoadministración online
+        </div>
+        <div class="info-card-content">
+          Administra tu tienda de manera autónoma sin pagar mensualidades
+        </div>
+      </div>
+    </mat-grid-tile>
+
+    <mat-grid-tile>
+      <div class="info-card">
+        <div class="info-card-title text-left">
+          Acceso de por vida
+        </div>
+        <div class="info-card-content">
+          Sin tiempo limite como otras plataformas
+        </div>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
+
+
+
+<div class="container-fluid" style="padding-top: 15px; background-color: #f3f3f3">
+
+  <div class="section-card">
+    <div class="section-title section-t-center">
+      <h3>Tiendas</h3>
+      <div class="section-border"></div>
+    </div> 
+    
+    <mat-spinner *ngIf="loadingPymes" style="margin:50px auto;" mode="indeterminate"></mat-spinner>
+    <div *ngIf="!loadingPymes" id="carousel-pymes" data-slick='{"slidesToShow": 5, "slidesToScroll": 1, "infinite": "true", "autoplay": "true"}'>
+      <div class="col-lg-4" *ngFor="let pyme of pymes;let last = last; let i = index">
+        <div class="section-card-container">
+          <div class="card">
+              <div class="back-store">
+                  <img src="{{pyme.attributes.photo}}" style="width: 100%;" />
+              </div>
+              <div class="logo-store"> <img  class="img-profile" src="{{pyme.attributes.photo}}" style="width: 100%;" /></div>
+            <div class="icon-like-content text-right">
+              <button mat-mini-fab [color]="pyme.attributes.follow ? 'accent':'basic'" (click)="openLoginDialog('seguir a tu tienda favorita','seguir', i, pyme)">
+                <mat-icon aria-label="favorito" [color]="!pyme.attributes.follow ? 'accent':'basic'">thumb_up</mat-icon>
+              </button>
+            </div>
+          </div>
+          <div class="container-card">
+            <span>{{pyme.attributes.name}}</span>
+            <p class="text-center-card">
+              <a [routerLink]="['/detail/', pyme.attributes.type_profile, pyme.id ]">Ver Tienda</a>
+            </p>
+            
+
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <div class="section-title section-t-center">
+      <h3>Independientes</h3>
+      <div class="section-border"></div>
+    </div>
+    <!-- <mat-divider style="margin-top: 10px"></mat-divider> -->
+    <mat-spinner *ngIf="loadingIndependents" style="margin:50px auto;" mode="indeterminate"></mat-spinner>
+    <div *ngIf="!loadingIndependents" id="carousel-independents" data-slick='{"slidesToShow": 5, "slidesToScroll": 1, "infinite": "true", "autoplay": "true"}'>
+      <div class="col-lg-4" *ngFor="let independent of independents;let last = last; let i = index;">
+       <div class="section-card-container">
+        <div class="card">  
+          <img src="{{independent.attributes.photo}}" style="width: 100%;" />
+          <div class="icon-like-content text-right">
+            <button mat-mini-fab  [color]="independent.attributes.follow ? 'accent':'basic'" (click)="openLoginDialog('seguir a tu profesional independiente favorito','seguir', i, independent)">
+              <mat-icon aria-label="" [color]="!independent.attributes.follow ? 'accent':'basic'">thumb_up</mat-icon>
+            </button>
+          </div>
+        </div>
+        <div class="container-card">
+          <span>{{independent.attributes.name}}</span>
+          <p class="text-center-card">
+            <a [routerLink]="['/detail/', independent.attributes.type_profile, independent.id ]">Ver más</a>
+          </p>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+ 
+  <div class="section-card">
+    <div class="section-title section-t-center">
+      <h3>Vendedores</h3>
+      <div class="section-border"></div>
+    </div>
+    <mat-spinner *ngIf="loadingSellers" style="margin:50px auto;" mode="indeterminate"></mat-spinner>
+    <div *ngIf="!loadingSellers" id="carousel-sellers" data-slick='{"slidesToShow": 5, "slidesToScroll": 1, "infinite": "true", "autoplay": "true"}'>
+      <div class="col-lg-4" *ngFor="let seller of sellers;let last = last; let i = index;">
+        <div class="section-card-container">
+        <div class="card">
+          <img src="{{seller.attributes.photo}}" style="width: 100%;" />
+          <div class="icon-like-content text-right">
+            <button mat-mini-fab [color]="seller.attributes.follow ? 'accent':'basic'" (click)="openLoginDialog('seguir a tu vendedor favorito','seguir', i , seller)">
+              <mat-icon aria-label="" [color]="!seller.attributes.follow ? 'accent':'basic'">thumb_up</mat-icon>
+            </button>
+          </div>
+        </div>
+        <div class="container-card">
+          <span>{{seller.attributes.name}}</span>
+          <p class="text-center-card">
+            <a [routerLink]="['/detail/', seller.attributes.type_profile, seller.id ]">Ver más</a>
+          </p>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-categories">
+    <div class="section-card">
+     <div class="section-title section-t-center">
+         <h3>Categorias</h3>
+         <div class="section-border"></div>
+         <p class="message-section">Productos clasificados de acuerdo a tus necesidades</p>
+       </div>
+       <mat-spinner *ngIf="loadingCategories" style="margin:50px auto;" mode="indeterminate"></mat-spinner>
+       <div *ngIf="!loadingCategories" id="carousel-category"  data-slick='{"slidesToShow": 5, "slidesToScroll": 1, "infinite": "true", "autoplay": "true"}'>
+         <div class="col-lg-4"  *ngFor="let category of categories;let last = last; let i = index;">
+             <div class="section-card-container">
+                 <div class="card">
+                     
+                   <div class="back-store">
+                       <img src="assets/imgs/backgroundProfile.png" style="width: 100%;" />
+                   </div>
+                   
+                   <div class="logo-store"></div>
+                   <div class="title-category">
+                       <h5>{{category.name}}</h5>
+                   </div>
+                 </div>
+              </div>
+          </div>
+       </div>
+     </div>
+ </div>
+
+ <div class="container-categories">
+    <div class="section-card">
+     <div class="section-title section-t-center">
+         <h3>Nuevos Productos</h3>
+         <div class="section-border"></div>
+         <!-- <p class="message-section"> </p> -->
+       </div>
+       <mat-spinner *ngIf="loadingProducts" style="margin:50px auto;" mode="indeterminate"></mat-spinner>
+       <div *ngIf="!loadingProducts" id="carousel-products"  data-slick='{"slidesToShow": 5, "slidesToScroll": 1, "infinite": "true", "autoplay": "true"}'>
+         <div class="col-lg-4"  *ngFor="let product of products;let last = last; let i = index">
+             <div class="section-card-container" >
+                <div class="card">  
+                    <img src="assets/imgs/defecto.png" style="width: 100%;" (click)="detailProduct(product)"/>
+                    <div class="icon-like-content text-right">
+                      <button mat-mini-fab [color]="product.attributes.wish != null ? 'accent':'basic'" (click)="openLoginDialog('agregar productos a tu lista de deseos','deseo', i, product)">
+                        <mat-icon aria-label="" [color]="product.attributes.wish != null ? 'basic':'accent'" >favorite_border</mat-icon>
+                      </button>
+                    </div>
+                  </div>
+                
+                      <mat-grid-list cols="4" (click)="detailProduct(product)">
+                          <mat-grid-tile
+                              
+                              [colspan]="2"
+                              [rowspan]="1"
+                              >
+                             <p class="text-name">{{product.attributes.name}}</p>
+                          </mat-grid-tile>
+                          <mat-grid-tile
+                              
+                              [colspan]="2"
+                              [rowspan]="1"
+                              >
+                              <h5>{{product.attributes.price | currency}}</h5>
+                          </mat-grid-tile>
+                        </mat-grid-list>
+              </div>
+          </div>
+       </div>
+     </div>
+ </div>
+
+<footer>
+  <div class="container text-left">
+    2018
+    <i class="material-icons">copyright</i> Bigwave
+  </div>
+</footer>

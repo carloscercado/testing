@@ -1,0 +1,190 @@
+.app-container {
+  width: 100%;
+  height: 100vh;
+}
+
+.app-sidenav-content {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.app-sidenav {
+  padding: 20px;
+}
+
+.mask {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: linear-gradient(to right, #133254, transparent 90%);
+}
+
+.carousel-description {
+  color: #fafafa;
+  text-align: left;
+  padding-bottom: 200px;
+}
+
+.info-card {
+  margin: 50px 0px 80px 0px !important;
+  min-height: 100px;
+  width: 100%;
+  border-left: 4px solid #3f51b5;
+  padding: 10px;
+  display: inline-block;
+}
+
+.info-card-title {
+  font-weight: bold;
+}
+
+.info-card-content {
+  padding-top: 10px;
+}
+
+ #carousel-independents, #carousel-sellers, #carousel-products {
+  padding-top: 40px;
+
+  img {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    object-fit: contain;
+  }
+}
+
+#carousel-pymes {
+  padding-top: 40px;
+}
+
+#carousel-pymes img.img-profile{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  object-fit: contain;
+}
+
+.card {
+  background: #fafafa;
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+  min-height: 210px;
+  width: 100%;
+}
+
+.container-card {
+  background: #fafafa;
+  border-top: 2px solid #b9bdc2; 
+  min-height: 60px;
+  color: #555;
+  font-size: 13px;
+  font-weight: bold; 
+  padding: 10px 0px 0px 10px;
+  text-align: center;
+}
+
+.text-name{
+  color: #555;
+  font-weight: bold; 
+  font-size: 13px;
+}
+
+.container-card a:hover{
+ text-decoration: none;
+}
+
+.section-card-container{
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+ 
+}
+
+.section-card-container:hover{
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  cursor: pointer; 
+  cursor: hand;
+}
+
+.card-name {
+  position: absolute;
+  bottom: 10px;
+  padding-left: 10px;
+  font-size: 14px;
+  color: #555;
+  font-weight: bold;
+}
+
+.section-card{
+  padding: 0 1% 2% 1%;
+}
+
+.section-t-center {
+  text-align: center;
+}
+
+.text-center-card{
+  text-align: center;
+}
+
+.section-border{
+  border-bottom: 4px solid #3f51b5;
+  margin-left: 45%;
+  margin-right: 45%;
+}
+
+.container-categories{
+  background: #fff;
+  padding: 10px;
+}
+
+.message-section{
+  font-weight: 600;
+  font-size: 17px;
+}
+
+.logo-store{
+  text-align: center;
+  background-color: #FFF;
+    -webkit-border-radius: 8px;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 2px 15px 0 rgba(0,0,0,.1);
+    box-shadow: 0 2px 15px 0 rgba(0,0,0,.1);
+    height: 70px;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+    width: 70px;
+}
+
+.back-store{
+  background: #eee;
+  height: 95px;
+  margin-bottom: -20px;
+  overflow: hidden;
+  text-align: center
+}
+
+.title-category{
+  text-align: center;
+  color: #666;
+}
+
+footer {
+  background: #3f51b5;
+  padding: 10px;
+  color: #fff;
+  font-size: 16px;
+}
+
+footer i {
+  padding-top: 10px;
+  font-size: 13px;
+}
+
+.flag-icon {
+  position: absolute;
+  font-size: 25px;
+  padding: 5px 10px;
+  margin-left: 10px;
+  margin-top: 5px;
+}

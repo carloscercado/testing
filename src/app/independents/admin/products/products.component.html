@@ -1,0 +1,29 @@
+<mat-nav-list>
+  <div *ngIf="this.toggleView">
+    <h1 mat-subheader>Productos</h1>
+    <mat-divider></mat-divider>
+    <mat-spinner style="margin:150px auto;" mode="indeterminate" *ngIf="generalLoading"></mat-spinner>
+    <div>
+      <div *ngFor="let product of myProducts">
+        <mat-list-item>
+          <img matListAvatar src="assets/imgs/profile.jpg" alt="...">
+          <a matLine [routerLink]="['/independents/show/product/', this.independentId, product.id ]">{{product.attributes.name}}</a>
+          <button mat-icon-button (click)="deleteProduct(product, this.independentId)">
+            <mat-icon mat-list-icon>delete</mat-icon>
+          </button>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!this.toggleView">
+    <h1 mat-subheader>Crear Nuevo Producto</h1>
+    <admin-create-independent-products [independentId]="this.independentId"></admin-create-independent-products>
+  </div>
+</mat-nav-list>
+
+
+<button mat-fab color="primary" class="action-button" (click)="this.toggleView = !toggleView">
+  <mat-icon> {{ toggleView ? 'add' : 'close' }}</mat-icon>
+</button>

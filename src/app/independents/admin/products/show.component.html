@@ -1,0 +1,774 @@
+<mat-spinner mode="indeterminate" *ngIf="generalLoading"></mat-spinner>
+<div *ngIf="!generalLoading">
+  <mat-card style="padding: 20px 20px 50px 20px">
+    <div class="float-left">
+      <h3>{{ product.attributes.name }}</h3>
+    </div>
+    <div class="float-right">
+      <mat-slide-toggle [(ngModel)]="product.attributes.prominent">
+        {{ product.attributes.prominent ? 'Destacado' : 'No destacado' }}
+      </mat-slide-toggle>
+    </div>
+  </mat-card>
+
+  <mat-card>
+    <div class="row">
+      <div class="col-sm-12">
+        <h5 class="title-row">Informacion del producto</h5>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Nombre del producto" [(value)]="product.attributes.name" [(ngModel)]="product.attributes.name">
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Stock del producto" value="{{ product.attributes.stock }}" [(ngModel)]="product.attributes.stock">
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="example-full-width">
+          <input matInput  placeholder="Número de Referencia" [(value)]="product.attributes['num_ref']" [(ngModel)]="product.attributes['num_ref']">
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="example-full-width">
+        <input matInput type="number" placeholder="Código de Barra" [(value)]="product.attributes['bar_code']" [(ngModel)]="product.attributes['bar_code']">
+        </mat-form-field>
+      </div>
+      <div class="col-md-12">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Marca" [(value)]="product.attributes.brand" [(ngModel)]="product.attributes.brand">
+        </mat-form-field>
+      </div>
+      <div class="col-md-12">
+        <mat-form-field class="example-full-width">
+          <mat-select placeholder="Tipo de servicio" [(value)]="product.attributes['service_type']" [(ngModel)]="product.attributes['service_type']">
+            <mat-option value="product">Producto</mat-option>
+            <mat-option value="service">Servicio</mat-option>
+            <mat-option value="product-n-service">Producto y Servicio</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-md-12">
+        <mat-form-field class="demo-chip-list" style="width: 100%">
+          <mat-chip-list #chipList>
+            <mat-chip color="primary" *ngFor="let tag of tags" [selectable]="selectable"
+                     [removable]="removable" (removed)="remove(tag)">
+              {{ tag }}
+              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+            <input placeholder="Nuevo Tag"
+                  matInput
+                  [matChipInputFor]="chipList"
+                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                  [matChipInputAddOnBlur]="addOnBlur"
+                  (matChipInputTokenEnd)="add($event)" />
+          </mat-chip-list>
+        </mat-form-field>
+      </div>
+      <div class="col-md-12">
+        <mat-form-field class="example-full-width">
+          <textarea matInput placeholder="Descripción del producto" value="{{ product.attributes.description }}" [(ngModel)]="product.attributes.description"></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+  </mat-card>
+
+  <mat-card>
+    <div class="row">
+      <div class="col-sm-12">
+        <h5 class="title-row">Imágen de portada</h5>
+      </div>
+
+      <div class="col-sm-12">
+        <img class="user-profile-avatar" src="{{imageCache}}" alt="" *ngIf="toggleImage && imageCache">
+        <img class="user-profile-avatar" src="https://bigwave-api.herokuapp.com{{product.attributes.cover.url}}" alt="" *ngIf="!toggleImage && !imageCache">
+        <input type='file' (change)="onSelectFile($event)" multiple>
+      </div>
+    </div>
+  </mat-card>
+
+  <mat-card>
+    <div class="row">
+      <div class="col-sm-12">
+        <h5 class="title-row">Imágenes del producto</h5>
+      </div>
+
+      <div class="col-sm-12">
+        <input type="file" multiple (change)="detectFiles($event)">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <img *ngFor="let url of images" class="user-profile-avatar" [src]="url" alt="">
+      </div>
+    </div>
+  </mat-card>
+
+  <mat-card>
+    <div class="row">
+      <div class="col-sm-12">
+        <h5 class="title-row">Archivos</h5>
+      </div>
+
+      <div class="col-sm-12">
+        <input type="file" placeholder="PDF src" [(ngModel)]="pdfSrc">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <pdf-viewer src="https://vadimdez.github.io/ng2-pdf-viewer/pdf-test.pdf"></pdf-viewer>
+      </div>
+    </div>
+  </mat-card>
+
+  <mat-card>
+    <div class="row">
+      <div class="col-sm-12">
+        <h5 class="title-row">¿Es un producto virtual?</h5>
+      </div>
+
+      <div class="col-sm-12">
+        <mat-radio-group [(ngModel)]="product.attributes.virtual_product">
+          <mat-radio-button [value]="true">Si</mat-radio-button>
+          <mat-radio-button [value]="false">No</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+  </mat-card>
+
+  <mat-card>
+    <div class="row">
+      <div class="col-sm-12">
+        <h5 class="title-row">Categorías {{ q }}</h5>
+      </div>
+      <div class="col-sm-12">
+        <mat-chip-list #chipList>
+          <mat-chip color="primary" *ngFor="let subcategory of product.attributes.subcategories" [selectable]="selectable">
+            {{ subcategory.name }}
+          </mat-chip>
+        </mat-chip-list>
+      </div>
+
+      <div class="col-lg-12">
+        <mat-form-field class="example-full-width">
+          <mat-select placeholder="Categorias" [formControl]="myControl" [(ngModel)]="this.subcategorys" multiple>
+            <mat-option style="margin-top: 10px">
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="buscar" [(ngModel)]="q" (keyup)="filterCategories()">
+              </mat-form-field>
+            </mat-option>
+            <mat-optgroup *ngFor="let category of filterCategories" [label]="category.category">
+              <mat-option *ngFor="let subcategory of category.subcategories" [value]="subcategory.id">
+                {{ subcategory.name }} - {{ subcategory.id }}
+              </mat-option>
+            </mat-optgroup>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </mat-card>
+
+  <mat-card>
+    <div class="row">
+      <div class="col-sm-12">
+        <h5 class="title-row">Precio y rangos de precios</h5>
+      </div>
+
+      <div class="col-md-6">
+        <mat-form-field class="example-full-width">
+          <mat-select placeholder="Tipo de moneda" [(value)]="product.attributes.currency" [(ngModel)]="product.attributes.currency">
+            <mat-option value="USD">USD - Dólares</mat-option>
+            <mat-option value="BS">VEF - Bolívares</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="example-full-width">
+        <input matInput placeholder="Precio" type="number" class="example-right-align" value="{{ product.attributes.price }}" [(ngModel)]="product.attributes.price">
+          <span matPrefix>{{product.currency}}&nbsp;</span>
+          <span matSuffix>.00</span>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <mat-divider [inset]="true" style="margin-bottom: 10px; position: relative; margin-top: 20px;"></mat-divider>
+        <h5 class="title-row">Rangos de precios</h5>
+      </div>
+
+      <div class="col-lg-4">
+        <mat-form-field style="width: 100%">
+           <input matInput placeholder="Cantidad"
+             type="number"
+             class="example-right-align"
+             id="product_stock"
+             [ngModelOptions]="{standalone: true}"
+             [(ngModel)]="quantity"/>
+          </mat-form-field>
+      </div>
+
+      <div class="col-lg-4">
+        <mat-form-field style="width: 100%">
+           <input matInput placeholder="Precio"
+             type="number"
+             class="example-right-align"
+             id="product_price"
+             [ngModelOptions]="{standalone: true}"
+             [(ngModel)]="price"/>
+            <span matPrefix *ngIf="typeMoney == 'USD'">$&nbsp;</span>
+            <span matPrefix *ngIf="typeMoney == 'BS'">Bs.&nbsp;</span>
+            <span matSuffix>.00</span>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-4 text-center">
+        <button mat-raised-button color="primary" (click)="addRange(this.price, this.quantity)">
+          Añadir
+        </button>
+      </div>
+
+      <mat-spinner mode="indeterminate" *ngIf="rangesLoading"></mat-spinner>
+      <div class="col-lg-12" *ngIf="!rangesLoading">
+        <mat-nav-list>
+          <mat-list-item *ngFor="let range of ranges">
+             <h3 matLine>Cantidad: {{ range.stock }} - Precio: {{ range.price }}</h3>
+             <button mat-icon-button (click)="removeRange(range)">
+                <mat-icon>delete</mat-icon>
+             </button>
+          </mat-list-item>
+        </mat-nav-list>
+      </div>
+    </div>
+  </mat-card>
+
+  <mat-card>
+    <div class="row">
+      <div class="col-sm-12">
+        <h5 class="title-row">Productos relacionados</h5>
+      </div>
+      <div class="col-lg-12">
+        <mat-form-field class="example-full-width">
+          <mat-select placeholder="Productos" [formControl]="myControl" [(value)]="product.attributes['product-relations']" [(ngModel)]="product.attributes['product-relations']" multiple>
+            <mat-option *ngFor="let prod of myProducts" [value]="prod.id" (*ngIf)="prod.id != product.id">
+              {{ prod.attributes.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </mat-card>
+
+  <mat-card>
+    <div class="row">
+      <div class="col-sm-12">
+        <h5 class="title-row">Opciones del producto</h5>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Nombre" [(value)]="productOptions.name" [(ngModel)]="productOptions.name">
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-4">
+        <mat-form-field class="demo-chip-list" style="width: 100%">
+          <mat-chip-list #chipOptionList>
+            <mat-chip color="primary" *ngFor="let option of productOptions.values" [selectable]="selectable"
+                     [removable]="removable" (removed)="removeOption(option)">
+              {{ option }}
+              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+            <input placeholder="Valores"
+                   [matChipInputFor]="chipOptionList"
+                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                   [matChipInputAddOnBlur]="addOnBlur"
+                   (matChipInputTokenEnd)="addOption($event)" />
+          </mat-chip-list>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-4 text-center">
+        <button mat-raised-button color="primary" (click)="createOption()">
+          Añadir
+        </button>
+      </div>
+    </div>
+
+    <div class="row">
+      <mat-spinner mode="indeterminate" *ngIf="optionsLoading"></mat-spinner>
+      <div class="col-lg-12" *ngIf="!optionsLoading">
+        <mat-nav-list>
+          <mat-list-item *ngFor="let option of productOption">
+             <h3 matLine>Nombre: {{ option.name }}</h3>
+             <h3 matLine *ngFor="let value of option.values">
+              <span> {{ value }} </span>
+             </h3>
+             <button mat-icon-button (click)="deleteOption(option)">
+               <mat-icon>delete</mat-icon>
+             </button>
+          </mat-list-item>
+        </mat-nav-list>
+      </div>
+    </div>
+  </mat-card>
+
+  <mat-card>
+    <div class="row">
+      <div class="col-sm-12">
+        <h5 class="title-row">Campos Personalizados</h5>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Nombre" [(value)]="customFields.name" [(ngModel)]="customFields.name">
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-4">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Valor" [(value)]="customFields.value" [(ngModel)]="customFields.value">
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-4 text-center">
+        <button mat-raised-button color="primary" (click)="createCustomField()"
+          [(disabled)]="!customFields.name || !customFields.value">
+          Añadir
+        </button>
+      </div>
+    </div>
+
+    <div class="row">
+      <mat-spinner mode="indeterminate" *ngIf="customLoading"></mat-spinner>
+      <div class="col-lg-12" *ngIf="!customLoading">
+        <mat-nav-list>
+          <mat-list-item *ngFor="let custom of customField">
+             <h3 matLine>Nombre: {{ custom.name }} - Valor: {{ custom.value }}</h3>
+             <button mat-icon-button (click)="removeCustomField(custom)">
+                <mat-icon>delete</mat-icon>
+             </button>
+          </mat-list-item>
+        </mat-nav-list>
+      </div>
+    </div>
+  </mat-card>
+
+  <button mat-raised-button (click)="updateProduct()" color="primary">
+    Actualizar producto
+  </button>
+</div>
+
+<!-- <mat-spinner mode="indeterminate" *ngIf="generalLoading"></mat-spinner> -->
+<div *ngIf="!generalLoading">
+  <mat-card>
+    <div *ngIf="this.option == 'information'">
+      <mat-spinner *ngIf="loading" style="margin-bottom:0 aut" mode="indeterminate"></mat-spinner>
+      <div *ngIf="!loading">
+        <div class="container-fluid">
+          <div class="row">
+            <!-- <div style="margin-right: 20px">
+              <div class="pull-left">
+                <h3>{{ product.attributes.name }}</h3>
+              </div>
+              <div class="pull-right">
+                <mat-slide-toggle [(ngModel)]="product.attributes.prominent">
+                  {{ product.attributes.prominent ? 'Destacado' : 'No destacado' }}
+                </mat-slide-toggle>
+              </div>
+            </div> -->
+
+            <div class="col-lg-12">
+              <!-- <mat-spinner *ngIf="loading" mode="indeterminate"></mat-spinner> -->
+              <div *ngIf="!loading">
+
+                <div class="row">
+                  <div class="col-sm-12">
+                    <mat-divider [inset]="true" style="margin-bottom: 10px; position: relative; margin-top: 20px;"></mat-divider>
+                    <h5 class="title-row">Informacion del producto</h5>
+                  </div>
+                  <div class="col-md-6">
+                    <!-- Nombre del producto -->
+                    <!-- <mat-card-title> {{ product.attributes.name }} </mat-card-title> -->
+                    <!-- <mat-form-field class="example-full-width">
+                      <input matInput placeholder="Nombre del producto" [(value)]="product.attributes.name" [(ngModel)]="product.attributes.name">
+                    </mat-form-field> -->
+                  </div>
+                  <div class="col-md-6">
+                    <!-- Cantidad de productos -->
+                    <!-- <mat-card-subtitle>	Stock: {{ product.attributes.stock }} </mat-card-subtitle> -->
+                    <!-- <mat-form-field class="example-full-width">
+                      <input matInput placeholder="Stock del producto" value="{{ product.attributes.stock }}" [(ngModel)]="product.attributes.stock">
+                    </mat-form-field> -->
+                  </div>
+                </div>
+
+                <!-- <div class="row">
+                  <div class="col-sm-12">
+                    <mat-divider [inset]="true" style="margin-bottom: 10px; position: relative; margin-top: 20px;"></mat-divider>
+                    <h5 class="title-row">Imágen de portada</h5>
+                  </div>
+
+                  <div class="col-sm-12">
+                    <img class="user-profile-avatar" src="{{product.attributes.cover}}" alt="" *ngIf="!product.attributes.cover">
+                    <img class="user-profile-avatar" src="https://bigwave-api.herokuapp.com{{product.attributes.cover.url}}" alt="" *ngIf="product.attributes.cover">
+                    <input type='file' (change)="onSelectFile($event)">
+                  </div>
+                </div> -->
+
+                <!-- <div class="row">
+                  <div class="col-sm-12">
+                    <mat-divider [inset]="true" style="margin-bottom: 10px; position: relative; margin-top: 20px;"></mat-divider>
+                    <h5 class="title-row">Informacion del producto</h5>
+                  </div>
+                  <div class="col-md-12">
+                    <mat-form-field class="example-full-width">
+                      <input matInput placeholder="Marca" [(value)]="product.attributes.brand" [(ngModel)]="product.attributes.brand">
+                    </mat-form-field>
+                  </div>
+                </div> -->
+
+                <!-- <div class="row">
+                  <div class="col-sm-12">
+                    <mat-divider [inset]="true" style="margin-bottom: 10px; position: relative; margin-top: 20px;"></mat-divider>
+                    <h5 class="title-row">Precio del producto</h5>
+                  </div>
+
+                  <div class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                      <mat-select placeholder="Tipo de moneda" [(value)]="product.attributes.currency" [(ngModel)]="product.attributes.currency">
+                        <mat-option value="USD">USD - Dólares</mat-option>
+                        <mat-option value="BS">VEF - Bolívares</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Precio" type="number" class="example-right-align" value="{{ product.attributes.price }}" [(ngModel)]="product.attributes.price">
+                      <span matPrefix>{{product.currency}}&nbsp;</span>
+                      <span matSuffix>.00</span>
+                    </mat-form-field>
+                  </div>
+
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-12">
+                    <mat-divider [inset]="true" style="margin-bottom: 10px; position: relative; margin-top: 20px;"></mat-divider>
+                    <h5 class="title-row">Rangos de precios</h5>
+                  </div> -->
+
+                  <!-- <div class="col-lg-3">
+                    <mat-form-field style="width: 100%" [(ngModel)]="product.currency">
+                      <mat-select placeholder="Moneda">
+                        <mat-option *ngFor="let money of moneyType" [value]="money.value" (click)="typeMoney = money.value">
+                          {{ money.viewValue }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div> -->
+
+                  <!-- <div class="col-lg-4">
+                    <mat-form-field style="width: 100%">
+                       <input matInput placeholder="Cantidad"
+                           type="number"
+                           class="example-right-align"
+                           id="product_stock"
+                           [ngModelOptions]="{standalone: true}"
+                           [(ngModel)]="quantity"/>
+                      </mat-form-field>
+                  </div>
+
+                  <div class="col-lg-4">
+                    <mat-form-field style="width: 100%">
+                       <input matInput placeholder="Precio"
+                           type="number"
+                           class="example-right-align"
+                           id="product_price"
+                           [ngModelOptions]="{standalone: true}"
+                           [(ngModel)]="price"/>
+                        <span matPrefix *ngIf="typeMoney == 'USD'">$&nbsp;</span>
+                        <span matPrefix *ngIf="typeMoney == 'BS'">Bs.&nbsp;</span>
+                        <span matSuffix>.00</span>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-lg-4 text-center">
+                    <button mat-raised-button color="primary" (click)="addRange(this.price, this.quantity)">
+                      Añadir
+                    </button>
+                  </div>
+
+                  <div class="col-lg-12">
+                    <mat-nav-list>
+                      <mat-list-item *ngFor="let range of ranges">
+                         <h3 matLine>Cantidad: {{ range.stock }} - Precio: {{ range.price }}</h3>
+                         <button mat-icon-button (click)="removeRange(range)">
+                            <mat-icon>delete</mat-icon>
+                         </button>
+                      </mat-list-item>
+                    </mat-nav-list>
+                  </div>
+
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-12">
+                    <mat-divider [inset]="true" style="margin-bottom: 10px; position: relative; margin-top: 20px;"></mat-divider>
+                    <h5 class="title-row">Estado del producto</h5>
+                  </div>
+                  <div class="col-md-12"> -->
+                    <!-- <mat-card-subtitle>	{{ product.attributes.name }} </mat-card-subtitle> -->
+                    <!-- <mat-form-field class="example-full-width">
+                      <mat-select placeholder="Tipo de servicio" [(value)]="product.attributes['service_type']" [(ngModel)]="product.attributes['service_type']">
+                        <mat-option value="product">Producto</mat-option>
+                        <mat-option value="service">Servicio</mat-option>
+                        <mat-option value="product-n-service">Producto y Servicio</mat-option>
+                      </mat-select>
+                    </mat-form-field> -->
+                    <!-- <mat-form-field class="example-full-width" [formControl]="myControl">
+                      <mat-select placeholder="Tipo de servicio" [(value)]="product.attributes['service-type']" [(ngModel)]="product.attributes['service-type']">
+                        <mat-option value="product">Producto</mat-option>
+                        <mat-option value="service">Servicio</mat-option>
+                        <mat-option value="product-n-service">Producto y Servicio</mat-option>
+                      </mat-select>
+                    </mat-form-field> -->
+                  <!-- </div> -->
+
+                  <!-- <div class="col-md-12">
+                    <mat-form-field class="example-full-width">
+                      <mat-select placeholder="Estado" [(value)]="product.attributes.status" [(ngModel)]="product.attributes.status">
+                        <mat-option value="true">Activo</mat-option>
+                        <mat-option value="false">Inactivo</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div> -->
+                <!-- </div> -->
+
+                <!-- <div class="row">
+                  <div class="col-sm-12">
+                    <mat-divider [inset]="true" style="margin-bottom: 10px; position: relative; margin-top: 20px;"></mat-divider>
+                    <h5 class="title-row">Identificación del producto </h5>
+                  </div>
+                  <div class="col-md-6"> -->
+                    <!-- <mat-card-subtitle>	Numero de Referencia: {{ product.attributes.num_ref }} </mat-card-subtitle> -->
+                    <!-- <mat-form-field class="example-full-width">
+                      <input matInput  placeholder="Número de Referencia" [(value)]="product.attributes['num_ref']" [(ngModel)]="product.attributes['num_ref']">
+                    </mat-form-field> -->
+                  <!-- </div>
+                  <div class="col-md-6"> -->
+                    <!-- <mat-card-subtitle>	Codigo de barra: {{ product.attributes.bar_code }} </mat-card-subtitle> -->
+                    <!-- <mat-form-field class="example-full-width">
+
+                      <input matInput type="number" placeholder="Código de Barra" [(value)]="product.attributes['bar_code']" [(ngModel)]="product.attributes['bar_code']">
+                    </mat-form-field>
+                  </div>
+                </div> -->
+
+                <!-- <div class="row">
+                  <div class="col-sm-12">
+                    <mat-divider [inset]="true" style="margin-bottom: 10px; position: relative; margin-top: 20px;"></mat-divider>
+                    <h5 class="title-row">Categorias</h5>
+                  </div>
+                  <div class="col-lg-12">
+                    <mat-form-field class="example-full-width">
+                      <mat-select placeholder="Categorias" [formControl]="myControl" [(ngModel)]="product.subcategory_ids">
+                        <mat-optgroup *ngFor="let category of options" [label]="category.category">
+                          <mat-option *ngFor="let subcategory of category.subcategories" [value]="subcategory.id">
+                            {{ subcategory.name }}
+                          </mat-option>
+                        </mat-optgroup>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div> -->
+
+                <!-- <div class="row">
+                  <div class="col-sm-12">
+                    <mat-divider [inset]="true" style="margin-bottom: 10px; position: relative; margin-top: 20px;"></mat-divider>
+                    <h5 class="title-row">Productos relacionados</h5>
+                  </div>
+                  <div class="col-lg-12">
+                    <mat-form-field class="example-full-width">
+                      <mat-select placeholder="Productos" [formControl]="myControl" [(value)]="product.attributes['product-relations']" [(ngModel)]="product.attributes['product-relations']" multiple>
+                        <mat-option *ngFor="let prod of myProducts" [value]="prod.id" (*ngIf)="prod.id != product.id">
+                          {{ prod.attributes.name }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div> -->
+
+                <!-- <div class="row">
+                  <div class="col-sm-12">
+                    <mat-divider [inset]="true" style="margin-bottom: 10px; position: relative; margin-top: 20px;"></mat-divider>
+                    <h5 class="title-row">Información detallada</h5>
+                  </div>
+                  <div class="col-md-12"> -->
+                    <!-- <mat-card-content>	Descripción: {{ product.attributes.description }}</mat-card-content> -->
+                    <!-- <mat-form-field class="example-full-width">
+                      <textarea matInput placeholder="Descripción del producto" value="{{ product.attributes.description }}" [(ngModel)]="product.attributes.description"></textarea>
+                    </mat-form-field>
+                  </div>
+                </div> -->
+
+                <!-- <div class="row">
+                  <div class="col-sm-12">
+                    <mat-divider [inset]="true" style="margin-bottom: 10px; position: relative; margin-top: 20px;"></mat-divider>
+                    <h5 class="title-row">Etiquetas</h5>
+                  </div>
+                  <div class="col-lg-12"> -->
+                    <!-- <mat-form-field class="demo-chip-list" style="width: 100%">
+                      <mat-chip-list #chipList>
+                        <mat-chip color="primary" *ngFor="let tag of tags" [selectable]="selectable"
+                                 [removable]="removable" (removed)="remove(tag)">
+                          {{ tag.name }}
+
+                          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                        </mat-chip>
+                        <input placeholder="Nuevo Tag"
+                               [matChipInputFor]="chipList"
+                               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                               [matChipInputAddOnBlur]="addOnBlur"
+                               (matChipInputTokenEnd)="add($event)" />
+                      </mat-chip-list>
+                    </mat-form-field> -->
+                  <!-- </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-12">
+                    <mat-divider [inset]="true" style="margin-bottom: 10px; position: relative; margin-top: 20px;"></mat-divider>
+                    <h5 class="title-row">¿Es un producto virtual?</h5> -->
+                    <!-- <mat-divider [inset]="true" style="margin-bottom: 10px; position: relative"></mat-divider> -->
+                  <!-- </div>
+                  <div class="col-md-12">
+                    {{ pro}}
+                    <mat-radio-group [(ngModel)]="product.attributes.virtual_product">
+                      <mat-radio-button [value]="true">Si</mat-radio-button>
+                      <mat-radio-button [value]="false">No</mat-radio-button>
+                    </mat-radio-group>
+                  </div>
+                </div> -->
+
+                <!-- <div class="row">
+                  <div class="col-sm-12">
+                    <mat-divider [inset]="true" style="margin-bottom: 10px; position: relative; margin-top: 20px;"></mat-divider>
+                    <h5 class="title-row">Campos Personalizados</h5>
+                  </div>
+
+                  <div class="col-md-4">
+                    <mat-form-field class="example-full-width">
+                      <input matInput placeholder="Nombre" [(value)]="customFields.name" [(ngModel)]="customFields.name">
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-md-4">
+                    <mat-form-field class="example-full-width">
+                      <input matInput placeholder="Valor" [(value)]="customFields.value" [(ngModel)]="customFields.value">
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-md-4 text-center">
+                    <button mat-raised-button color="primary" (click)="createCustomField()">
+                      Añadir
+                    </button>
+                  </div>
+
+                  <div class="col-lg-12">
+                    <mat-nav-list>
+                      <mat-list-item *ngFor="let custom of customField">
+                         <h3 matLine>Nombre: {{ custom.name }} - Valor: {{ custom.value }}</h3>
+                         <button mat-icon-button (click)="removeCustomField(custom)">
+                            <mat-icon>delete</mat-icon>
+                         </button>
+                      </mat-list-item>
+                    </mat-nav-list>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-12">
+                    <mat-divider [inset]="true" style="margin-bottom: 10px; position: relative; margin-top: 20px;"></mat-divider>
+                    <h5 class="title-row">opciones del producto</h5>
+                  </div>
+
+                  <div class="col-md-4">
+                    <mat-form-field class="example-full-width">
+                      <input matInput placeholder="Nombre" [(value)]="productOptions.name" [(ngModel)]="productOptions.name">
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-md-4">
+                    <mat-form-field class="demo-chip-list" style="width: 100%">
+                      <mat-chip-list #chipOptionList>
+                        <mat-chip color="primary" *ngFor="let option of productOptions.values" [selectable]="selectable"
+                                 [removable]="removable" (removed)="removeOption(option)">
+                          {{ option }} -->
+                          <!-- .split('{"name"=>"') -->
+                          <!-- <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                        </mat-chip>
+                        <input placeholder="Valores"
+                               [matChipInputFor]="chipOptionList"
+                               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                               [matChipInputAddOnBlur]="addOnBlur"
+                               (matChipInputTokenEnd)="addOption($event)" />
+                      </mat-chip-list>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-md-4 text-center">
+                    <button mat-raised-button color="primary" (click)="createOption()">
+                      Añadir
+                    </button>
+                  </div>
+
+                  <div class="col-lg-12">
+                    <mat-nav-list>
+                      <mat-list-item *ngFor="let option of productOption">
+                         <h3 matLine>Nombre: {{ option.name }}</h3>
+                         <h3 matLine *ngFor="let value of option.values">
+                          <span> {{ value }} </span>
+                         </h3>
+                         <button mat-icon-button (click)="deleteOption(option)">
+                           <mat-icon>delete</mat-icon>
+                         </button>
+                      </mat-list-item>
+                    </mat-nav-list>
+                  </div>
+                </div> -->
+
+                <!-- <div class="row">
+                  <div class="col-sm-12">
+                    <mat-divider [inset]="true" style="margin-bottom: 10px; position: relative; margin-top: 20px;"></mat-divider>
+                    <h5 class="title-row">Añadir archivos</h5>
+                  </div>
+
+                  <div class="col-md-12">
+                    <input type="file" multiple (change)="onChange($event, showFileNames)" />
+                    <input #showFileNames />
+                  </div>
+                </div> -->
+                  <!-- <div class="col-sm-12">
+                    <button mat-raised-button (click)="updateProduct()" color="primary">
+                      Actualizar producto
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </mat-card>
+</div> -->
+
+<button mat-fab color="primary" class="action-button" (click)="back()">
+  <mat-icon> arrow_back </mat-icon>
+</button>
