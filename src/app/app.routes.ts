@@ -17,7 +17,9 @@ import { ShowIndependentsProductsComponent } from './independents/admin/products
 import { ShowSellersProductsComponent } from './sellers/admin/products/show.component';
 import { DetailComponent } from './detail/detail.component';
 import { DetailProductComponent } from './detail-product/detail-product.component';
+import { FavoritosComponent } from './favoritos/favoritos.component';
 import { PageComponent } from './page/page.component';
+import { CreatewishComponent } from './favoritos/create_wish/create_wish.component';
 
 export const appRoutes: Routes = [
   {
@@ -94,6 +96,16 @@ export const appRoutes: Routes = [
   {
     path: 'page/:type_profile',
     component: PageComponent,
+    data: { preload: false }
+  },
+  {
+    path: 'favoritos/:type_profile/:profile_id',
+    component: DetailComponent,
+    data: { preload: false }
+  },
+  {
+    path: 'favoritos/create_wish/:type_profile/:profile_id',
+    component: CreatewishComponent,
     data: { preload: false }
   },
   {

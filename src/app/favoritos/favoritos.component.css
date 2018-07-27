@@ -1,0 +1,105 @@
+.alert.alert-with-icon {
+  margin-top: 5px;
+  padding-left: 66px;
+}
+.alert.alert-info {
+  box-shadow: 0 4px 20px 0 rgba(0,0,0,.14),0 7px 10px -5px rgba(202, 207, 207, 0.4);
+}
+.alert.alert-info {
+  background-color: #fff;
+  color: #000000;
+}
+.alert-danger, .alert-info, .alert-rose, .alert-success, .alert-warning, .alert.alert-rose .alert-link, .alert.alert-rose a {
+  color: #fff;
+}
+.alert, .alert.alert-default {
+  background-color: #fff;
+  color: #555;
+}
+.alert {
+  border: 0;
+  border-radius: 3px;
+  position: relative;
+  padding: 20px 15px;
+      padding-left: 15px;
+  line-height: 20px;
+}
+.close:not(:disabled):not(.disabled) {
+  cursor: pointer;
+}
+.alert .close {
+  line-height: .5;
+}
+.alert .close {
+  color: #000000;
+  text-shadow: none;
+  opacity: .9;
+}
+
+button.close {
+  padding: 0;
+  background-color: transparent;
+  border: 0;
+  -webkit-appearance: none;
+}
+.close{
+  float: right;
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1;
+  color: #000;
+  text-shadow: 0 1px 0 #fff;
+  opacity: .5;
+}
+.alert.alert-with-icon i[data-notify="icon"] {
+  display: block;
+  left: 15px;
+  position: absolute;
+  margin-top: -39px;
+  font-size: 20px;
+  background-color: #fff;
+  padding: 4px;
+  border-radius: 50%;
+  max-width: 38px;
+  box-shadow: 0 16px 38px -12px rgba(0,0,0,.56),0 4px 25px 0 rgba(0,0,0,.12),0 8px 10px -5px rgba(0,0,0,.2);
+}
+.alert i[data-notify="icon"] {
+  display: none;
+}
+.alert.alert-rose i {
+  color: #e91e63;
+}
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -moz-font-feature-settings: 'liga';
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+.card-deck-container {
+  width: 100%;
+  max-width: 1200px;
+  position: relative;
+  border-radius: 2px;
+  padding: 10px 10px 30px;
+  margin: 10px 10px 10px 10px;
+  background-color: #f5f5f5;
+}
+
+.card-item {
+  padding: 3px 3px 3px 3px;
+}
+
+.boton-rigth{
+  margin-left:730px;
+}

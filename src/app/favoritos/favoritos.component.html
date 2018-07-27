@@ -1,0 +1,59 @@
+
+<div class ="row">
+     <div class="col-md-12">
+        <mat-toolbar>
+            <span>Mis Deseos</span>
+            <button mat-icon-button class="hidden-xs">
+                <mat-icon aria-label="">help_outline</mat-icon>
+            </button>
+            <div class="text-right">
+                <button class="boton-rigth"  (click)="openWishDialog()" mat-raised-button color="primary">Nuevo Deseo</button>
+            </div>
+        </mat-toolbar>
+     </div>   
+    <div class="col-md-12">
+        <div class="alert alert-info alert-with-icon" data-notify="container">
+                <i class="material-icons" data-notify="icon"><mat-icon mat-list-icon>help_outline</mat-icon></i>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <i class=""><mat-icon mat-list-icon>close</mat-icon></i>
+            </button>
+            <span data-notify="icon" class="now-ui-icons ui-1_bell-53"></span>           
+                <mat-list dense>
+                    <mat-list-item> • Puedes agregar a tu lista de deseos directamente en cada producto de la ewave con el icono de ( icono corazón) </mat-list-item>
+                    <mat-list-item> • Si alguno de tus deseos baja de precios<strong> ¡te notificaremos!</strong></mat-list-item>
+                    <mat-list-item> • Podrás dejar tus deseos públicos, para que los vendedores te ofrezcan descuentos exclusivos y personalizados en sus productos. </mat-list-item>
+                    <mat-list-item> • Agrega conceptos o productos directamente desde un formulario para conocer tus gustos y te llegue las mejores ofertas.</mat-list-item>
+                </mat-list>
+        </div>      
+    </div>
+</div>
+<div class="container">
+    <div class="row" style="margin-top: 5px; margin-bottom: 5px" >
+    <div class="col-md-4" *ngFor="let wish of wishes">
+        <mat-card class="example-card">
+                <mat-card-header>
+                    <mat-card-title><strong>Seller: </strong>{{ wish.vendedor }}</mat-card-title>
+                    <!--<mat-card-subtitle>Dog Breed</mat-card-subtitle>-->
+                </mat-card-header>
+                <img mat-card-image [src]="wish.img" alt="Wish Img">
+                <mat-card-content>
+                <h6><strong>{{ wish.name_wish }}</strong></h6>                    
+                <h6><strong>Category: </strong>{{ wish.category_wish }}</h6>
+                    
+                    <h6>{{ wish.description }}</h6>
+                    <div class="text-right">
+                        <h5 class=""><strong>{{ wish.presupuesto }}</strong></h5>
+                    </div>
+                </mat-card-content>
+                <mat-card-actions class="text-right">
+                        <button mat-raised-button color="primary">Update</button>
+                        <button mat-raised-button color="warn">Delete</button>
+                </mat-card-actions>
+            </mat-card>
+    </div>
+    </div>
+</div>
+
+
+
+      

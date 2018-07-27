@@ -1,0 +1,52 @@
+<h2 mat-dialog-title>New Wish</h2>
+<mat-dialog-content>
+  <form action="">
+      <div class="form-container">
+        <mat-form-field>
+            <input matInput name="" value="" placeholder="Wish Name" id="name_wish">
+        </mat-form-field>
+      
+          <mat-form-field>
+              <mat-select placeholder="Categorys" multiple>
+                <mat-option *ngFor="let category of categorys" [value]="category.name_category">
+                  {{category.name_category}}
+                </mat-option>
+              </mat-select>
+          </mat-form-field>                      
+      
+            <mat-form-field>
+                <mat-select placeholder="Nivel">
+                  <mat-option *ngFor="let nivel of niveles" [value]="nivel.nivel">
+                    {{nivel.nivel}}
+                  </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </form>
+  </mat-dialog-content>    
+  <mat-dialog-content>
+    <form action="">
+      <div class="form-container">
+        <mat-form-field>
+            <input matInput name="" value="" placeholder="Tag" id="">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput name="" value="" placeholder="Precio" id="">
+        </mat-form-field>      
+        <mat-form-field>
+            <textarea matInput placeholder="Description"></textarea>
+          </mat-form-field>  
+      </div>                             
+    </form>
+ </mat-dialog-content>
+
+<div class="text-center">
+    <button mat-raised-button color="primary">
+      <mat-icon aria-label="" style="font-size: 18px;">edit</mat-icon>
+      Create Wish
+    </button>
+</div>
+
+
+
+  

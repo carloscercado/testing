@@ -53,7 +53,7 @@
             <div class="col-md-4">
               <div class="section-card-container">
                 <mat-card>
-                  <img mat-card-image src="https://via.placeholder.com/300X250" alt="Photo of a Shiba Inu">
+                  <img mat-card-image src="assets/imgs/01.jpg" alt="Photo of a Shiba Inu">
                   <mat-card-content>
                     <strong>Negocio o marca</strong>
                     <p class="text-muted">
@@ -69,7 +69,7 @@
             <div class="col-md-4">
               <div class="section-card-container">
               <mat-card>
-              <img mat-card-image src="https://via.placeholder.com/300X250" alt="Photo of a Shiba Inu">
+              <img mat-card-image src="assets/imgs/02.jpg" alt="Photo of a Shiba Inu">
               <mat-card-content>
                 <strong>Comunidad o figura pública</strong>
                 <p class="text-muted">
@@ -85,11 +85,11 @@
             <div class="col-md-4">
               <div class="section-card-container">
               <mat-card>
-              <img mat-card-image src="https://via.placeholder.com/300X250" alt="Photo of a Shiba Inu">
+              <img mat-card-image src="assets/imgs/03.jpg" alt="Photo of a Shiba Inu">
               <mat-card-content>
-                <strong>Tercera card</strong>
+                <strong>Tercera Card</strong>
                 <p class="text-muted">
-                  Vende ahora como usuario (Perfil para usuarios que deseen vender de forma esporádica sin tener una dedicación exclusiva). <br/>
+                  Vende ahora como usuario (Perfil para usuarios que deseen vender de forma esporádica sin tener una dedicación exclusiva).<br/> <br/>
                 </p>
               </mat-card-content>
               <mat-card-actions class="text-center">
@@ -97,80 +97,79 @@
               </mat-card-actions>
             </mat-card>
             </div>
-            </div>
+            </div>            
           </div>
       </div>
-
     </div>
     <div *ngIf="option == 'information'">
       <mat-spinner *ngIf="loading" style="margin:0 auto;" mode="indeterminate"></mat-spinner>
       <div class="container">
      
-      <div class="row">
-        <div class="col-md-3"></div>
-        <mat-card class="col-md-6">
-            <div class="user-profile text-center" *ngIf="!loading">
-              <img class="user-profile-avatar" src="assets/imgs/profile.jpg" alt="" *ngIf="!user.avatar.url && !toggleImage"
-              style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover">
-              <img class="user-profile-avatar" [src]="imageCache" alt="" *ngIf="!user.avatar.url && toggleImage"
-              style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover">
-              <img class="user-profile-avatar"
-                  src="https://bigwave-api.herokuapp.com{{user.avatar.url}}" alt=""
-                  style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover"
-                  *ngIf="user.avatar.url && !toggleImage">
+        <div class="row">
+          <div class="col-md-3"></div>
+          <mat-card class="col-md-6">
+              <div class="user-profile text-center" *ngIf="!loading">
+                <img class="user-profile-avatar" src="assets/imgs/profile.jpg" alt="" *ngIf="!user.avatar.url && !toggleImage"
+                style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover">
+                <img class="user-profile-avatar" [src]="imageCache" alt="" *ngIf="!user.avatar.url && toggleImage"
+                style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover">
+                <img class="user-profile-avatar"
+                    src="https://bigwave-api.herokuapp.com{{user.avatar.url}}" alt=""
+                    style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover"
+                    *ngIf="user.avatar.url && !toggleImage">
 
-              <div class="button-row">
-                <input type='file' (change)="onSelectFile($event)">
-              </div>
-            </div>
-            <div class="user-profile">
-              <div class="section-title">Datos personales</div>
-              <mat-divider></mat-divider>
-              <div class="row" style="margin-top: 3%">
-                <div class="col-md-12">
-                  <mat-form-field>
-                    <input type="text" matInput id="fullname"
-                      placeholder="Nombre" [ngModelOptions]="{standalone: true}"
-                      required [(ngModel)]="user.name">
-                  </mat-form-field>
-                </div>
-                <div class="col-md-12">
-                  <mat-form-field>
-                    <input type="text" matInput id="nickname"
-                      placeholder="Nombre de usuario" [ngModelOptions]="{standalone: true}"
-                      required [(ngModel)]="user.nickname">
-                  </mat-form-field>
-                </div>
-                <div class="col-md-12">
-                  <mat-form-field>
-                    <input type="text" matInput id="email"
-                      placeholder="Correo/Email" [ngModelOptions]="{standalone: true}"
-                      required [(ngModel)]="user.email">
-                  </mat-form-field>
-                </div>
-                <div class="col-md-12">
-                  <mat-form-field>
-                    <input matInput placeholder="Enter your password"
-                          [type]="hide ? 'text' : 'password'"
-                          id="password"
-                          placeholder="Password"
-                          [ngModelOptions]="{standalone: true}"
-                          required [(ngModel)]="user.current_password">
-                    <mat-icon matSuffix (click)="hide = !hide" style="cursor: pointer">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
-                  </mat-form-field>
+                <div class="button-row">
+                  <input type='file' (change)="onSelectFile($event)">
                 </div>
               </div>
+              <div class="user-profile">
+                <div class="section-title">Datos personales</div>
+                <mat-divider></mat-divider>
+                <div class="row" style="margin-top: 3%">
+                  <div class="col-md-12">
+                    <mat-form-field>
+                      <input type="text" matInput id="fullname"
+                        placeholder="Nombre" [ngModelOptions]="{standalone: true}"
+                        required [(ngModel)]="user.name">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-12">
+                    <mat-form-field>
+                      <input type="text" matInput id="nickname"
+                        placeholder="Nombre de usuario" [ngModelOptions]="{standalone: true}"
+                        required [(ngModel)]="user.nickname">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-12">
+                    <mat-form-field>
+                      <input type="text" matInput id="email"
+                        placeholder="Correo/Email" [ngModelOptions]="{standalone: true}"
+                        required [(ngModel)]="user.email">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-12">
+                    <mat-form-field>
+                      <input matInput placeholder="Enter your password"
+                            [type]="hide ? 'text' : 'password'"
+                            id="password"
+                            placeholder="Password"
+                            [ngModelOptions]="{standalone: true}"
+                            required [(ngModel)]="user.current_password">
+                      <mat-icon matSuffix (click)="hide = !hide" style="cursor: pointer">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+                    </mat-form-field>
+                  </div>
+                </div>
 
-              <div class="text-center">
-                <button mat-raised-button color="primary" (click)="updateUser()">
-                   <mat-icon aria-label="" style="font-size: 18px;">edit</mat-icon>
-                  Actualizar
-                </button>
+                <div class="text-center">
+                  <button mat-raised-button color="primary" (click)="updateUser()">
+                    <mat-icon aria-label="" style="font-size: 18px;">edit</mat-icon>
+                    Actualizar
+                  </button>
+                </div>
               </div>
-            </div>
-        </mat-card>
-        <div class="col-md-3"></div>
-      </div>
+          </mat-card>
+          <div class="col-md-3"></div>
+        </div>
 
 
       </div>
@@ -189,6 +188,7 @@
     </div>
 
     <div *ngIf="option=='favorites'">
+      <app-favoritos></app-favoritos>
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

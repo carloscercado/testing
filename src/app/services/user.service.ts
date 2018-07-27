@@ -15,6 +15,7 @@ export class UserService  {
   constructor(private http: Http, private httpClient: HttpClient) {
     this.user;
     this.headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    console.log('servicio de usuarios listo para usarse');
   }
 
   createUser(){

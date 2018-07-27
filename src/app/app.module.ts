@@ -8,7 +8,7 @@ import { MenuComponent } from './menu/menu.component';
 import { NavbarSearchComponent } from './search/navbar-search.component';
 import { SearchPageComponent } from './search/search-page.component';
 import { HomeComponent } from './home/home.component';
-import { FormsModule } from "@angular/forms";
+import { FormsModule } from '@angular/forms';
 import { Error404Component } from './error-404/error-404.component';
 import { UserService } from './services/user.service';
 import { HttpClientModule } from '@angular/common/http';
@@ -71,6 +71,10 @@ import { MatDialog, MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angu
 
 import 'hammerjs';
 
+//Wishes
+import { FavoritosComponent } from './favoritos/favoritos.component';
+import { WishesService } from './services/wishes.component';
+import { CreatewishComponent } from './favoritos/create_wish/create_wish.component';
 
 //pipes
 import { safeUrlPipe } from './pipes/safeurl.pipe';
@@ -116,6 +120,8 @@ import { safeUrlPipe } from './pipes/safeurl.pipe';
     PageComponent,
     AlertComponent,
     safeUrlPipe,
+    FavoritosComponent,
+    CreatewishComponent
   ],
   entryComponents: [
     AreYouSureComponent,
@@ -145,6 +151,7 @@ import { safeUrlPipe } from './pipes/safeurl.pipe';
   providers: [
     FormBuilder,
     UserService,
+    WishesService,
     Angular2TokenService,
     MatDialog,
     { provide: MAT_DIALOG_DATA, useValue: [] },

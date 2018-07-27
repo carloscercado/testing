@@ -12,6 +12,7 @@ import { SellersComponent } from '../sellers/sellers.component';
 import { CreateIndependentsComponent } from '../independents/create.component';
 import { CreateSellerComponent } from '../sellers/create.component';
 import { IndependentsComponent } from '../independents/independents.component';
+import { FavoritosComponent } from '../favoritos/favoritos.component';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
 
 declare var Snackbar: any;
